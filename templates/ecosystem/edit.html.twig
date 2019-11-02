@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Ecosystem{% endblock %}
+
+{% block body %}
+    <h1>Edit Ecosystem</h1>
+
+    {{ include('ecosystem/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('ecosystem_index') }}">back to list</a>
+
+    {{ include('ecosystem/_delete_form.html.twig') }}
+{% endblock %}

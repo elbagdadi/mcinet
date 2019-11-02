@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HasField{% endblock %}
+
+{% block body %}
+    <h1>HasField</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ has_field.id }}</td>
+            </tr>
+            <tr>
+                <th>Field_label</th>
+                <td>{{ has_field.fieldLabel }}</td>
+            </tr>
+            <tr>
+                <th>Field_type</th>
+                <td>{{ has_field.fieldType }}</td>
+            </tr>
+            <tr>
+                <th>True_value</th>
+                <td>{{ has_field.trueValue }}</td>
+            </tr>
+            <tr>
+                <th>Options</th>
+                <td>{{ has_field.options }}</td>
+            </tr>
+            <tr>
+                <th>Selector_id</th>
+                <td>{{ has_field.selectorId }}</td>
+            </tr>
+            <tr>
+                <th>Selector_classes</th>
+                <td>{{ has_field.selectorClasses }}</td>
+            </tr>
+            <tr>
+                <th>Selector_placeholder</th>
+                <td>{{ has_field.selectorPlaceholder }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('has_field_index') }}">back to list</a>
+
+    <a href="{{ path('has_field_edit', {'id': has_field.id}) }}">edit</a>
+
+    {{ include('has_field/_delete_form.html.twig') }}
+{% endblock %}

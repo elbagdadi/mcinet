@@ -19,7 +19,16 @@ class MetierRepository extends ServiceEntityRepository
         parent::__construct($registry, Metier::class);
     }
 
-    // /**
+    public function findByEcosystem($ecos)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.ecosystem = :val')
+            ->setParameter('val', $ecos)
+            ->orderBy('m.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+    // /** findByEcosystem */
     //  * @return Metier[] Returns an array of Metier objects
     //  */
     /*

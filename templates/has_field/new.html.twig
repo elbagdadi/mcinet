@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New HasField{% endblock %}
+
+{% block body %}
+    <h1>Create new HasField</h1>
+
+    {{ include('has_field/_form.html.twig') }}
+
+    <a href="{{ path('has_field_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HasField index{% endblock %}
+
+{% block body %}
+    <h1>HasField index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Field_label</th>
+                <th>Field_type</th>
+                <th>True_value</th>
+                <th>Options</th>
+                <th>Selector_id</th>
+                <th>Selector_classes</th>
+                <th>Selector_placeholder</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for has_field in has_fields %}
+            <tr>
+                <td>{{ has_field.id }}</td>
+                <td>{{ has_field.fieldLabel }}</td>
+                <td>{{ has_field.fieldType }}</td>
+                <td>{{ has_field.trueValue }}</td>
+                <td>{{ has_field.options }}</td>
+                <td>{{ has_field.selectorId }}</td>
+                <td>{{ has_field.selectorClasses }}</td>
+                <td>{{ has_field.selectorPlaceholder }}</td>
+                <td>
+                    <a href="{{ path('has_field_show', {'id': has_field.id}) }}">show</a>
+                    <a href="{{ path('has_field_edit', {'id': has_field.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('has_field_new') }}">Create new</a>
+{% endblock %}

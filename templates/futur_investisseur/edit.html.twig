@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit FuturInvestisseur{% endblock %}
+
+{% block body %}
+    <h1>Edit FuturInvestisseur</h1>
+
+    {{ include('futur_investisseur/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('futur_investisseur_index') }}">back to list</a>
+
+    {{ include('futur_investisseur/_delete_form.html.twig') }}
+{% endblock %}

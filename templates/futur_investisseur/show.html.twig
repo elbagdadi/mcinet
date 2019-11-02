@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FuturInvestisseur{% endblock %}
+
+{% block body %}
+    <h1>FuturInvestisseur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ futur_investisseur.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ futur_investisseur.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ futur_investisseur.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ futur_investisseur.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('futur_investisseur_index') }}">back to list</a>
+
+    <a href="{{ path('futur_investisseur_edit', {'id': futur_investisseur.id}) }}">edit</a>
+
+    {{ include('futur_investisseur/_delete_form.html.twig') }}
+{% endblock %}

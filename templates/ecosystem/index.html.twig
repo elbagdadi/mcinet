@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ecosystem index{% endblock %}
+
+{% block body %}
+    <h1>Ecosystem index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom_ecosystem</th>
+                <th>Slug_ecosystem</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ecosystem in ecosystems %}
+            <tr>
+                <td>{{ ecosystem.id }}</td>
+                <td>{{ ecosystem.nomEcosystem }}</td>
+                <td>{{ ecosystem.slugEcosystem }}</td>
+                <td>
+                    <a href="{{ path('ecosystem_show', {'id': ecosystem.id}) }}">show</a>
+                    <a href="{{ path('ecosystem_edit', {'id': ecosystem.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('ecosystem_new') }}">Create new</a>
+{% endblock %}

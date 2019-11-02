@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ecosystem{% endblock %}
+
+{% block body %}
+    <h1>Ecosystem</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ecosystem.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom_ecosystem</th>
+                <td>{{ ecosystem.nomEcosystem }}</td>
+            </tr>
+            <tr>
+                <th>Slug_ecosystem</th>
+                <td>{{ ecosystem.slugEcosystem }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('ecosystem_index') }}">back to list</a>
+
+    <a href="{{ path('ecosystem_edit', {'id': ecosystem.id}) }}">edit</a>
+
+    {{ include('ecosystem/_delete_form.html.twig') }}
+{% endblock %}
