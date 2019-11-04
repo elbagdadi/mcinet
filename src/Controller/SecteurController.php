@@ -57,6 +57,7 @@ class SecteurController extends AbstractController
             $data[$key]['text'] = $c->getNomSecteur();
             $data[$key]['slug'] = $c->getSlugSecteur();
             $data[$key]['id'] = $c->getId();
+            $data[$key]['federation'] = $c->getFederation();
             $data[$key]['fields'] = $this->getFields( $hasFieldRepository,$c->getId());
         }
 
