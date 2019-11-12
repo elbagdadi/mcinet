@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Secteur;
 use App\Form\SecteurType;
+use App\Repository\MetierRepository;
 use App\Repository\SecteurRepository;
 use App\Repository\HasFieldRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +17,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SecteurController extends AbstractController
 {
+
+
+
+
     /**
      * @Route("/", name="secteur_index", methods={"GET"})
      */
@@ -47,7 +52,7 @@ class SecteurController extends AbstractController
     /**
      * @Route("/children/api/{secteur_parent}", name="secteur_children_api", methods={"GET"})
      */
-    public function childrenApi(SecteurRepository $secteurRepository,HasFieldRepository $hasFieldRepository,Request $request)
+    public function childrenApi(SecteurRepository $secteurRepository,HasFieldRepository $hasFieldRepository,MetierRepository $metierRepository,Request $request)
     {
         $data = array();
         $parent=$request->get('secteur_parent');
@@ -57,7 +62,9 @@ class SecteurController extends AbstractController
             $data[$key]['text'] = $c->getNomSecteur();
             $data[$key]['slug'] = $c->getSlugSecteur();
             $data[$key]['id'] = $c->getId();
+            $data[$key]['federation'] = $c->getFederation();
             $data[$key]['fields'] = $this->getFields( $hasFieldRepository,$c->getId());
+            $data[$key]['metiers'] = $this->getMetiers( $metierRepository,$c->getId());
         }
 
        return $this->json([
@@ -147,5 +154,14 @@ class SecteurController extends AbstractController
             $data[$key]['id'] = $item->getId();
         }
         return $data;
+    }
+    public function getMetiers(MetierRepository $metierRepository,$secteur){
+            $metiers = $metierRepository->findBySecteur($secteur);
+            $data = array();
+            foreach ($metiers as $key => $metier){
+                $data[$key]['id'] = $metier->getId();
+                $data[$key]['metier'] = $metier->getNomMetier();
+            }
+            return $data;
     }
 }

@@ -28,6 +28,15 @@ class MetierRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findBySecteur($secteur)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.secteur = :val')
+            ->setParameter('val', $secteur)
+            ->orderBy('m.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
     // /** findByEcosystem */
     //  * @return Metier[] Returns an array of Metier objects
     //  */
