@@ -35,6 +35,7 @@ class EcosystemController extends AbstractController
         $items = $ecosystemRepository->findBySecteur($secteur);
         foreach ($items as $key => $item){
             $data[$key]['ecosystem'] = $item->getNomEcosystem();
+            $data[$key]['slug'] = $item->getSlugEcosystem();
             $data[$key]['id'] = $item->getId();
         }
 
