@@ -35,6 +35,7 @@ class MetierController extends AbstractController
         $metiers = $metierRepository->findByEcosystem($ecos);
         foreach ($metiers as $key => $item){
             $data[$key]['metier'] = $item->getNomMetier();
+            $data[$key]['slug'] = $item->getSlugMetier();
             $data[$key]['id'] = $item->getId();
         }
 
