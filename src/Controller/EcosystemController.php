@@ -36,6 +36,7 @@ class EcosystemController extends AbstractController
         foreach ($items as $key => $item){
             $data[$key]['ecosystem'] = $item->getNomEcosystem();
             $data[$key]['slug'] = $item->getSlugEcosystem();
+            $data[$key]['sorting'] = $item->getSorting();
             $data[$key]['id'] = $item->getId();
         }
 
