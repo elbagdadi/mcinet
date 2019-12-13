@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EcosystemRepository")
@@ -37,6 +38,11 @@ class Ecosystem
      * @ORM\OneToMany(targetEntity="App\Entity\Metier", mappedBy="ecosystem")
      */
     private $metiers;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $sorting;
 
     public function __construct()
     {
@@ -74,6 +80,23 @@ class Ecosystem
     {
         $this->slug_ecosystem = $slug_ecosystem;
 
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSorting(): ?int
+    {
+        return $this->sorting;
+    }
+
+    /**
+     * @param mixed $sorting
+     */
+    public function setSorting($sorting): self
+    {
+        $this->sorting = $sorting;
         return $this;
     }
 

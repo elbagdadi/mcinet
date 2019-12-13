@@ -24,7 +24,7 @@ class EcosystemRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('e')
             ->andWhere('e.secteur = :val')
             ->setParameter('val', $secteur)
-            ->orderBy('e.id', 'ASC')
+            ->orderBy('e.sorting', 'ASC')
             ->getQuery()
             ->getResult();
     }

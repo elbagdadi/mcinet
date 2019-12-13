@@ -14,6 +14,7 @@ class EcosystemType extends AbstractType
         $builder
             ->add('nom_ecosystem')
             ->add('slug_ecosystem')
+            ->add('sorting')
             ->add('secteur')
         ;
     }
