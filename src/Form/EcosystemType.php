@@ -15,6 +15,7 @@ class EcosystemType extends AbstractType
             ->add('nom_ecosystem')
             ->add('slug_ecosystem')
             ->add('sorting')
+            ->add('salaire')
             ->add('secteur')
         ;
     }

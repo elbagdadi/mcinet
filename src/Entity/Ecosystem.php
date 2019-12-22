@@ -44,6 +44,11 @@ class Ecosystem
      */
     private $sorting;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $salaire;
+
     public function __construct()
     {
         $this->metiers = new ArrayCollection();
@@ -139,6 +144,18 @@ class Ecosystem
                 $metier->setEcosystem(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSalaire(): ?float
+    {
+        return $this->salaire;
+    }
+
+    public function setSalaire(?float $salaire): self
+    {
+        $this->salaire = $salaire;
 
         return $this;
     }
