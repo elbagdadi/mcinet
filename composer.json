@@ -15,6 +15,8 @@
         "symfony/form": "4.3.*",
         "symfony/framework-bundle": "4.3.*",
         "symfony/maker-bundle": "^1.14",
+        "symfony/security-bundle": "4.3.*",
+        "symfony/serializer-pack": "^1.0",
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {

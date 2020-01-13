@@ -36,6 +36,12 @@ class Metier
      */
     private $ecosystem;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $natureDuProjet;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,4 +94,19 @@ class Metier
 
         return $this;
     }
+
+    public function getNatureDuProjet(): ?string
+    {
+        return $this->natureDuProjet;
+    }
+
+    public function setNatureDuProjet(?string $natureDuProjet): self
+    {
+        $this->natureDuProjet = $natureDuProjet;
+
+        return $this;
+    }
+
+
+
 }
