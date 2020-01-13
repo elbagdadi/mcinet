@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NatureDuProjet index{% endblock %}
+
+{% block body %}
+    <h1>NatureDuProjet index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Slug</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for nature_du_projet in nature_du_projets %}
+            <tr>
+                <td>{{ nature_du_projet.id }}</td>
+                <td>{{ nature_du_projet.title }}</td>
+                <td>{{ nature_du_projet.slug }}</td>
+                <td>
+                    <a href="{{ path('nature_du_projet_show', {'id': nature_du_projet.id}) }}">show</a>
+                    <a href="{{ path('nature_du_projet_edit', {'id': nature_du_projet.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('nature_du_projet_new') }}">Create new</a>
+{% endblock %}

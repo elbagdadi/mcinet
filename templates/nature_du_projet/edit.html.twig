@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit NatureDuProjet{% endblock %}
+
+{% block body %}
+    <h1>Edit NatureDuProjet</h1>
+
+    {{ include('nature_du_projet/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('nature_du_projet_index') }}">back to list</a>
+
+    {{ include('nature_du_projet/_delete_form.html.twig') }}
+{% endblock %}
