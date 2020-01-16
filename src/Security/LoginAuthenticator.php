@@ -52,8 +52,10 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        $userId = $token->getUser()->getId();
         return new JsonResponse([
-            'result' => true
+            'result' => true,
+            'user' => $userId
         ]);
     }
 
