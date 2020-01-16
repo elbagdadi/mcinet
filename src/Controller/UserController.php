@@ -10,9 +10,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 class UserController extends AbstractController
 {
+    private $entityManager;
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
     /**
      * @Route("/login", name="api_login", methods={"POST"})
      */
@@ -23,18 +30,26 @@ class UserController extends AbstractController
     /**
      * @Route("/register", name="api_register", methods={"POST"})
      */
-    public function register(ObjectManager $om, UserPasswordEncoderInterface $passwordEncoder, Request $request)
+    public function register(UserPasswordEncoderInterface $passwordEncoder, Request $request, \Swift_Mailer $mailer)
     {
 
         $user = new User();
 
         $email                  = $request->request->get("email");
         $password               = $request->request->get("password");
-        $passwordConfirmation   = $request->request->get("password_confirmation");
-        $role                   = $request->request->get("role");
+
+       // $password = random_bytes(10);
+        /* $passwordConfirmation   = $request->request->get("password_confirmation");*/
+        $role                   = "ROLE_SUBSCRIBER";
 
         $errors = [];
-        if($password != $passwordConfirmation)
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('mcinet.ma@gmail.com')
+            ->setTo($email)
+            ->setBody('BONJOUR VOTRE MOT DE PASSE EST '.$password);
+
+        $mailer->send($message);
+      /*  if($password != $passwordConfirmation)
         {
             $errors[] = "Password does not match the password confirmation.";
         }
@@ -43,7 +58,7 @@ class UserController extends AbstractController
         {
             $errors[] = "Password should be at least 6 characters.";
         }
-
+        */
         if(!$errors)
         {
             $encodedPassword = $passwordEncoder->encodePassword($user, $password);
@@ -52,8 +67,8 @@ class UserController extends AbstractController
             $user->setRoles([$role]);
             try
             {
-                $om->persist($user);
-                $om->flush();
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
 
                 return $this->json([
                     'user' => $user->getEmail()
@@ -78,11 +93,12 @@ class UserController extends AbstractController
     }
     /**
      * @Route("/profile", name="api_profile")
+     * @IsGranted({"ROLE_ADMIN", "ROLE_SUBSCRIBER"}, message="No access! Get out!")
      */
     public function profile()
     {
-        $current_user = $this->getUser();
-        $roles = $current_user->getRoles();
+
+
 
         return $this->json([
             'user' => $this->getUser()
