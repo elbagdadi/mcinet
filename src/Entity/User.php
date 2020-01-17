@@ -34,10 +34,7 @@ class User implements UserInterface
      */
     private $password;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\FuturInvestisseur", mappedBy="user", cascade={"persist", "remove"})
-     */
-    private $futurInvestisseur;
+
 
     public function getId(): ?int
     {
@@ -117,21 +114,4 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getFuturInvestisseur(): ?FuturInvestisseur
-    {
-        return $this->futurInvestisseur;
-    }
-
-    public function setFuturInvestisseur(?FuturInvestisseur $futurInvestisseur): self
-    {
-        $this->futurInvestisseur = $futurInvestisseur;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newUser = null === $futurInvestisseur ? null : $this;
-        if ($futurInvestisseur->getUser() !== $newUser) {
-            $futurInvestisseur->setUser($newUser);
-        }
-
-        return $this;
-    }
 }

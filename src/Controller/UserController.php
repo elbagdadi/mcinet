@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use App\Entity\FuturInvestisseur;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -42,10 +43,14 @@ class UserController extends AbstractController
     {
 
         $user = new User();
+        $investisseur = new FuturInvestisseur();
 
         $email                  = $request->request->get("email");
         $password               = $request->request->get("password");
 
+        //get invester data
+        $nom = $request->request->get("nom");
+        $prenom = $request->request->get("prenom");
        // $password = random_bytes(10);
         /* $passwordConfirmation   = $request->request->get("password_confirmation");*/
         $role                   = "ROLE_SUBSCRIBER";
@@ -73,9 +78,19 @@ class UserController extends AbstractController
             $user->setEmail($email);
             $user->setPassword($encodedPassword);
             $user->setRoles([$role]);
+            //store investor data
+            $investisseur->setNom($nom);
+            $investisseur->setPrenom($prenom);
+
+
             try
             {
                 $this->entityManager->persist($user);
+                $this->entityManager->flush();
+
+                $investisseur->setUserId($user->getId());
+
+                $this->entityManager->persist($investisseur);
                 $this->entityManager->flush();
 
                 return $this->json([

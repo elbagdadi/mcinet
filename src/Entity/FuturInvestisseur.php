@@ -52,9 +52,11 @@ class FuturInvestisseur
     private $adresse;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="futurInvestisseur", cascade={"persist", "remove"})
+     * @ORM\Column(type="integer")
      */
-    private $user;
+    private $user_id;
+
+
 
 
     public function getId(): ?int
@@ -146,16 +148,19 @@ class FuturInvestisseur
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUserId(): ?int
     {
-        return $this->user;
+        return $this->user_id;
     }
 
-    public function setUser(?User $user): self
+    public function setUserId(int $user_id): self
     {
-        $this->user = $user;
+        $this->user_id = $user_id;
 
         return $this;
     }
+
+
+
 
 }

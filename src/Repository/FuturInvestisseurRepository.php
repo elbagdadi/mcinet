@@ -19,32 +19,12 @@ class FuturInvestisseurRepository extends ServiceEntityRepository
         parent::__construct($registry, FuturInvestisseur::class);
     }
 
-    // /**
-    //  * @return FuturInvestisseur[] Returns an array of FuturInvestisseur objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByUser($user): ?FuturInvestisseur
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.user_id = :val')
+            ->setParameter('val', $user)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?FuturInvestisseur
-    {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
