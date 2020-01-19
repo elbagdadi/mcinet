@@ -46,12 +46,12 @@ class UserController extends AbstractController
         $investisseur = new FuturInvestisseur();
 
         $email                  = $request->request->get("email");
-        $password               = $request->request->get("password");
+       // $password               = $request->request->get("password");
 
         //get invester data
         $nom = $request->request->get("nom");
         $prenom = $request->request->get("prenom");
-       // $password = random_bytes(10);
+        $password = random_bytes(10);
         /* $passwordConfirmation   = $request->request->get("password_confirmation");*/
         $role                   = "ROLE_SUBSCRIBER";
 
@@ -94,7 +94,8 @@ class UserController extends AbstractController
                 $this->entityManager->flush();
 
                 return $this->json([
-                    'user' => $user->getEmail()
+                    'user' => $user->getId(),
+                    'result' => true,
                 ]);
             }
             catch(UniqueConstraintViolationException $e)
