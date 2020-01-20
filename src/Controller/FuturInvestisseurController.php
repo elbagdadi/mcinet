@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\FuturInvestisseur;
 use App\Form\FuturInvestisseurType;
 use App\Repository\FuturInvestisseurRepository;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -42,6 +44,19 @@ class FuturInvestisseurController extends AbstractController
             return $this->json(['user' => 'null']);
         }
 
+    }
+    /**
+     * @Route("/isRegistred", name="futur_investisseur_isRegistred", methods={"GET"})
+     **/
+    public function isRegistred(UserRepository $userRepository, Request $request): Response
+    {
+        $email = $request->get('email');
+        $isRegistred = $userRepository->isRegistred($email);
+        $restult = true;
+        if($isRegistred == null){
+           $restult = false;
+        }
+        return $this->json(['result' => $restult]);;
     }
     /**
      * @Route("/new", name="futur_investisseur_new", methods={"GET","POST"})
