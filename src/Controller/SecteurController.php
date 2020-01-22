@@ -50,7 +50,7 @@ class SecteurController extends AbstractController
         ]);
     }
     /**
-     * @Route("/api/all", name="secteur_api", methods={"GET"})
+     * @Route("/api/all", name="secteur_api_all", methods={"GET"})
      */
     public function secteursApi(SecteurRepository $secteurRepository): Response
     {
