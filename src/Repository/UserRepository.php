@@ -27,6 +27,14 @@ class UserRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
             ;
     }
+    public function getTheUser($userid){
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.id = :val')
+            ->setParameter('val', $userid)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

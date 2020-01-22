@@ -48,6 +48,23 @@ class EcosystemController extends AbstractController
 
     }
     /**
+     * @Route("/api/all", name="ecosystems_all_api", methods={"GET"})
+     */
+    public function allApi(EcosystemRepository $ecosystemRepository,Request $request)
+    {
+        $data = array();
+        $items = $ecosystemRepository->findAll();
+        foreach ($items as $key => $item){
+            $data[$key]['text'] = $item->getNomEcosystem();
+            $data[$key]['id'] = $item->getId();
+        }
+
+        return $this->json([
+            'ecosystems'=> $data
+        ]);
+
+    }
+    /**
      * @Route("/new", name="ecosystem_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response

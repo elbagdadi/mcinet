@@ -5,11 +5,11 @@ namespace App\Controller;
 use App\Entity\FuturInvestisseur;
 use App\Form\FuturInvestisseurType;
 use App\Repository\FuturInvestisseurRepository;
+use App\Repository\UserRepository;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Repository\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -32,14 +32,26 @@ class FuturInvestisseurController extends AbstractController
     /**
      * @Route("/profile/{user_id}", name="futur_investisseur_information", methods={"GET"})
      */
-    public function informations(FuturInvestisseurRepository $futurInvestisseurRepository, Request $request): Response
+    public function informations(FuturInvestisseurRepository $futurInvestisseurRepository,UserRepository $userRepository, Request $request): Response
     {
+        $result = [];
         $user_id = $request->get('user_id');
-        //print_r($futurInvestisseurRepository->findAll());
-        //var_dump($futurInvestisseurRepository->findByUser($user_id));die;
         $loggedInUser = $futurInvestisseurRepository->findByUser($user_id);
+        $role = $userRepository->getTheUser($loggedInUser)->getRoles();
+        $result = [
+            "id"=>$loggedInUser->getId(),
+            "role"=>$role[0],
+            "nom" => $loggedInUser->getNom(),
+            "prenom"=> $loggedInUser->getPrenom(),
+            "ste" =>$loggedInUser->getSte(),
+            "pays"=> $loggedInUser->getPays(),
+            "ville"=> $loggedInUser->getVille(),
+            "tel"=>$loggedInUser->getTel(),
+            "adresse"=>$loggedInUser->getAdresse(),
+            "userId"=>$loggedInUser->getUserId()
+        ];
         if(!empty($loggedInUser)){
-            return $this->json(['user' => $loggedInUser]);
+            return $this->json(['user' => $result]);
         }else{
             return $this->json(['user' => 'null']);
         }

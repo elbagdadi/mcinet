@@ -39,6 +39,15 @@ class SecteurRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findSecteur($id)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
     // /**
     //  * @return Secteur[] Returns an array of Secteur objects
     //  */

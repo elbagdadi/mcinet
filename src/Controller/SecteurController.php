@@ -50,6 +50,24 @@ class SecteurController extends AbstractController
         ]);
     }
     /**
+     * @Route("/api/all", name="secteur_api", methods={"GET"})
+     */
+    public function secteursApi(SecteurRepository $secteurRepository): Response
+    {
+
+        $data = array();
+        $parents = $secteurRepository->findAll();
+        foreach ($parents as $key => $p){
+            $data[$key]['text'] = $p->getNomSecteur();
+            $data[$key]['slug'] = $p->getSlugSecteur();
+            $data[$key]['id'] = $p->getId();
+        }
+
+        return $this->json([
+            'secteurs' => $data,
+        ]);
+    }
+    /**
      * @Route("/children/api/{secteur_parent}", name="secteur_children_api", methods={"GET"})
      */
     public function childrenApi(SecteurRepository $secteurRepository,HasFieldRepository $hasFieldRepository,MetierRepository $metierRepository,Request $request)
@@ -73,6 +91,7 @@ class SecteurController extends AbstractController
         ]);
 
     }
+
     /**
      * @Route("/new", name="secteur_new", methods={"GET","POST"})
      */
