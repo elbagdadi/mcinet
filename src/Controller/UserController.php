@@ -143,6 +143,46 @@ class UserController extends AbstractController
     public function logout(){
 
     }
+    /**
+     * @Route("/api/{id}/changepwd", name="api_changepwd", methods={"POST"})
+     */
+    public function changepwd(Request $request,UserRepository $userRepository,UserPasswordEncoderInterface $passwordEncoder){
+        $id = $request->get('id');
+        $pwd = $request->request->get('usrpwd');
+        $confirmusrpwd = $request->request->get('confirmusrpwd');
+        $user = $userRepository->getTheUser($id);
+         $errors = [];
+
+        if($pwd != $confirmusrpwd)
+        {
+            $errors[] = "Password does not match the password confirmation.";
+        }
+
+        if(strlen($pwd) < 6)
+        {
+            $errors[] = "Password should be at least 6 characters.";
+        }
+        if(!$errors)
+        {
+
+            $encodedPassword = $passwordEncoder->encodePassword($user, $pwd);
+            $user->setPassword($encodedPassword);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            //var_dump($errors);die;
+            return $this->json([
+                'result' => true,
+                'errors' => $errors
+            ]);
+        }else{
+            return $this->json([
+                'result' => true,
+                'errors' => $errors
+            ]);
+        }
+
+    }
 
 
 }

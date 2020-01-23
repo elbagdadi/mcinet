@@ -92,7 +92,43 @@ class FuturInvestisseurController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/api/{id}/update", name="futur_investisseur_update_api", methods={"POST"})
+     */
+    public function new_update(Request $request, FuturInvestisseurRepository $futurInvestisseurRepository): Response
+    {
+            $user = $request->get('id');
+            $nom = $request->request->get('nom');
+            $prenom = $request->request->get('prenom');
+            $ville= $request->request->get('ville');
+            $adresse = $request->request->get('adresse');
+            $pays = $request->request->get('pays');
+            //var_dump($prenom);die;
+            if($nom != '' && $prenom !='' && $ville != '' && $adresse != '' && $pays != ''){
+                $investisseur = $futurInvestisseurRepository->findByUser($user);
+                $investisseur->setNom($nom);
+                $investisseur->setPrenom($prenom);
+                $investisseur->setAdresse($adresse);
+                $investisseur->setPays($pays);
+                $investisseur->setVille($ville);
 
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($investisseur);
+                $entityManager->flush();
+                return $this->json([
+                    'result' => true,
+                    'investisseur'=> $investisseur
+                ]);
+            }else{
+                return $this->json([
+                    'result' => false,
+                    'investisseur'=> null
+                ]);
+            }
+
+
+
+    }
     /**
      * @Route("/{id}", name="futur_investisseur_show", methods={"GET"})
      */
