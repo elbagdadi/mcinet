@@ -59,12 +59,12 @@ class UserController extends AbstractController
         $role                   = "ROLE_SUBSCRIBER";
 
         $errors = [];
-        $message = (new \Swift_Message('Hello Email'))
+       /* $message = (new \Swift_Message('Hello Email'))
             ->setFrom('mcinet.ma@gmail.com')
             ->setTo($email)
             ->setBody('BONJOUR VOTRE MOT DE PASSE EST '.$password);
 
-        $mailer->send($message);
+        $mailer->send($message);*/
       /*  if($password != $passwordConfirmation)
         {
             $errors[] = "Password does not match the password confirmation.";
@@ -75,6 +75,8 @@ class UserController extends AbstractController
             $errors[] = "Password should be at least 6 characters.";
         }
         */
+      //function to send email via api wigaming
+     //   $this->sendEmail($email,"Votre compte au mcinet platform","Ci joint vous trouverez vos access: bonjour");
         if(!$errors)
         {
             $encodedPassword = $passwordEncoder->encodePassword($user, $password);
@@ -183,6 +185,12 @@ class UserController extends AbstractController
         }
 
     }
-
+    private function sendEmail($to,$subject,$message){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "http://wigaming.net/demos/mail_api/?to=".$to."&subject=".$subject."&message=".$message);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_exec($ch);
+        curl_close($ch);
+    }
 
 }
