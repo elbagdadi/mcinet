@@ -37,7 +37,10 @@ class FuturInvestisseurController extends AbstractController
         $result = [];
         $user_id = $request->get('user_id');
         $loggedInUser = $futurInvestisseurRepository->findByUser($user_id);
-        $role = $userRepository->getTheUser($loggedInUser)->getRoles();
+       // $user = $userRepository->getTheUser($loggedInUser);
+        $user = $userRepository->find($user_id);
+
+        $role = $user->getRoles();
         $result = [
             "id"=>$loggedInUser->getId(),
             "role"=>$role[0],

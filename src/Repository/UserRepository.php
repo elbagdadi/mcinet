@@ -27,7 +27,8 @@ class UserRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
             ;
     }
-    public function getTheUser($userid){
+    public function getTheUser($userid): ?User
+    {
         return $this->createQueryBuilder('u')
             ->andWhere('u.id = :val')
             ->setParameter('val', $userid)
