@@ -181,5 +181,17 @@ class UserController extends AbstractController
         }
 
     }
+    /**
+     * @Route("/users/{role}", name="api_users_by_role")
+     */
+    public function users(Request $request, UserRepository $userRepository){
+        $role = $request->get('role');
+        $users = $userRepository->findByRole($role);
+        //var_dump($role);die;
+        return $this->json([
+            'result' => $users,
+            'errors' => []
+        ]);
+    }
 
 }
