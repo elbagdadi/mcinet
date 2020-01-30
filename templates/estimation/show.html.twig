@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Estimation{% endblock %}
+
+{% block body %}
+    <h1>Estimation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ estimation.id }}</td>
+            </tr>
+            <tr>
+                <th>Secteur</th>
+                <td>{{ estimation.secteur }}</td>
+            </tr>
+            <tr>
+                <th>Date_estimation</th>
+                <td>{{ estimation.dateEstimation }}</td>
+            </tr>
+            <tr>
+                <th>User</th>
+                <td>{{ estimation.user }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('estimation_index') }}">back to list</a>
+
+    <a href="{{ path('estimation_edit', {'id': estimation.id}) }}">edit</a>
+
+    {{ include('estimation/_delete_form.html.twig') }}
+{% endblock %}

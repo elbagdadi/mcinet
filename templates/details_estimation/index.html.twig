@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DetailsEstimation index{% endblock %}
+
+{% block body %}
+    <h1>DetailsEstimation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Estimation</th>
+                <th>Cle</th>
+                <th>Valeur</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for details_estimation in details_estimations %}
+            <tr>
+                <td>{{ details_estimation.id }}</td>
+                <td>{{ details_estimation.estimation }}</td>
+                <td>{{ details_estimation.cle }}</td>
+                <td>{{ details_estimation.valeur }}</td>
+                <td>
+                    <a href="{{ path('details_estimation_show', {'id': details_estimation.id}) }}">show</a>
+                    <a href="{{ path('details_estimation_edit', {'id': details_estimation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('details_estimation_new') }}">Create new</a>
+{% endblock %}
