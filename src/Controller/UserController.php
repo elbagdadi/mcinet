@@ -55,9 +55,16 @@ class UserController extends AbstractController
         //get invester data
         $nom = $request->request->get("nom");
         $prenom = $request->request->get("prenom");
-        $password = random_bytes(10);
-        /* $passwordConfirmation   = $request->request->get("password_confirmation");*/
         $role                   = "ROLE_SUBSCRIBER";
+        if($request->request->get('role') == 'admin'){
+            $role = "ROLE_ADMIN";
+        }
+        $password = random_bytes(10);
+        if($request->request->get('password') != ''){
+            $password = $request->request->get('password');
+        }
+        /* $passwordConfirmation   = $request->request->get("password_confirmation");*/
+
 
         $errors = [];
 
@@ -192,6 +199,31 @@ class UserController extends AbstractController
             'result' => $users,
             'errors' => []
         ]);
+    }
+    /**
+     * @Route("/{id}/delete", name="api_user_delete", methods={"POST"})
+     */
+    public function delete(Request $request, UserRepository $userRepository): Response
+    {
+            $id = $request->get('id');
+            $user = $userRepository->findOneBy(['id'=>$id]);
+            if($user){
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($user);
+                $entityManager->flush();
+                return $this->json([
+                    'result' => true,
+                    'errors' => []
+                ]);
+            }else{
+                return $this->json([
+                    'result' => false,
+                    'errors' => []
+                ]);
+            }
+
+
+
     }
 
 }

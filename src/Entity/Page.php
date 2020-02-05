@@ -33,6 +33,11 @@ class Page
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $state = "not_published";
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +75,18 @@ class Page
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }
