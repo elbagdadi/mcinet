@@ -35,7 +35,7 @@ class PageController extends AbstractController
         ]);
     }
     /**
-     * @Route("/{slug}", name="single_page", methods={"GET"})
+     * @Route("/single/{slug}", name="single_page", methods={"GET"})
      */
     public function getpage(Request $request,PageRepository $pageRepository): Response
     {
@@ -47,7 +47,7 @@ class PageController extends AbstractController
         ]);
     }
     /**
-     * @Route("/new", name="page_new", methods={"GET","POST"})
+     * @Route("/add", name="page_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
