@@ -43,7 +43,7 @@ class UserRepository extends ServiceEntityRepository
             ->andWhere('u.roles LIKE :roles')
             ->setParameter('roles', '%"' . $roles . '"%')
             ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
+            ->setMaxResults(50)
             ->getQuery()
             ->getResult()
             ;
