@@ -46,6 +46,7 @@ class FuturInvestisseurController extends AbstractController
             "role"=>$role[0],
             "nom" => $loggedInUser->getNom(),
             "prenom"=> $loggedInUser->getPrenom(),
+            //email added
             "email" => $user->getEmail(),
             "ste" =>$loggedInUser->getSte(),
             "pays"=> $loggedInUser->getPays(),
