@@ -36,7 +36,7 @@ class PageController extends AbstractController
         ]);
     }
     /**
-     * @Route("/allpage/{page}", name="page_all_paginated", methods={"GET"})
+     * @Route("/allpage/{page}", name="page_all_paginated_api", methods={"GET"})
      */
     public function allpaginated($page = 1,Request $request, PaginatorInterface $paginator,PageRepository $pageRepository): Response
     {
