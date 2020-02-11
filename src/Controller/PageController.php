@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/page")
@@ -32,6 +33,24 @@ class PageController extends AbstractController
         return $this->json([
             'result' => true,
             'details'=> $pageRepository->findAll(),
+        ]);
+    }
+    /**
+     * @Route("/allpage/{page}", name="page_all_paginated", methods={"GET"})
+     */
+    public function allpaginated($page = 1,Request $request, PaginatorInterface $paginator,PageRepository $pageRepository): Response
+    {
+            $data = $pageRepository->findAll();
+            $page = intval($request->get('page',1));
+        $pages = $paginator->paginate(
+            $data,
+            $page,
+            6
+        );
+        return $this->json([
+            'result' => true,
+            'count' => count($data),
+            'details'=> $pages
         ]);
     }
     /**
