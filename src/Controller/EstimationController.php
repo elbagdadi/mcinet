@@ -102,7 +102,7 @@ class EstimationController extends AbstractController
             $page,
             8
         );
-        return $this->json(['history' => $simulations]);
+        return $this->json(['history' => $simulations,'count' => count($data)]);
 
     }
     /**
