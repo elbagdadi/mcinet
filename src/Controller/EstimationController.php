@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/estimation")
@@ -87,6 +88,20 @@ class EstimationController extends AbstractController
      */
     public function allSimulations(EstimationRepository $estimationRepository){
         $simulations = $estimationRepository->findAll();
+        return $this->json(['history' => $simulations]);
+
+    }
+    /**
+     * @Route("/api/allpaginated/{page}", name="estimation_api_all_paginated", methods={"GET"})
+     */
+    public function allSimulationsPaginated($page = 1,EstimationRepository $estimationRepository,Request $request, PaginatorInterface $paginator){
+        $data = $estimationRepository->findAll();
+        $page = intval($request->get('page',1));
+        $simulations = $paginator->paginate(
+            $data,
+            $page,
+            8
+        );
         return $this->json(['history' => $simulations]);
 
     }
