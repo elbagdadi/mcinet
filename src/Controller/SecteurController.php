@@ -17,10 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SecteurController extends AbstractController
 {
-
-
-
-
     /**
      * @Route("/", name="secteur_index", methods={"GET"})
      */
@@ -33,8 +29,14 @@ class SecteurController extends AbstractController
     /**
      * @Route("/api", name="secteur_api", methods={"GET"})
      */
-    public function secteurApi(SecteurRepository $secteurRepository): Response
+   public function secteurApi(SecteurRepository $secteurRepository, \Swift_Mailer $mailer): Response
     {
+        $message = (new \Swift_Message('Hello Email'))
+        ->setFrom('me@elbagdadi.com')
+        ->setTo('elbagdadi.abdou@gmail.com')
+        ->setBody("hello from heroku");
+
+    $mailer->send($message);
 
         $data = array();
         $parents = $secteurRepository->findbyParent();
